@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能空调调控网页</title>
+    <link rel="stylesheet" href="../static/css/butify.css">
+</head>
+
+<body>
+    <!-- 首行标题 -->
+    <h1 class="wrapper big">智能空调控制</h1>
+
+    <!-- 导航 -->
+    <div class="wrapper navall">
+        <!-- 背景图 -->
+        <div class="forpic"></div>
+
+        <!-- 设置时间导航栏 -->
+        <div class="navreal">
+            <h2>请设置工作时间</h2>
+            <div class="weeklist">
+                <ul>
+                    <li class="li">
+                        <div class="weektime">周一</div>
+                    </li>
+                    <li class="li">
+                        <div class="weektime">周二</div>
+                    </li>
+                    <li class="li">
+                        <div class="weektime">周三</div>
+                    </li>
+                    <li class="li">
+                        <div class="weektime">周四</div>
+                    </li>
+                    <li class="li">
+                        <div class="weektime">周五</div>
+                    </li>
+                    <li class="li">
+                        <div class="weektime">周六</div>
+                    </li>
+                    <li class="li">
+                        <div class="weektime">周日</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="hourlist">
+            <div class="hourtime">一</div>
+            <div class="hourtime">二</div>
+            <div class="hourtime">三</div>
+            <div class="hourtime">四</div>
+            <div class="hourtime">五</div>
+            <div class="hourtime">六</div>
+            <div class="hourtime">七</div>
+        </div> -->
+    </div>
+    <div class="wrapper nextbox">
+        <div class="left innerwrap">
+            <div class="leftheader1">
+            </div>
+            <div class="leftheader2">
+                <br>
+                <hr><br>
+            </div>
+            <div class="setarea">
+                <div class="setheader"></div>
+                <div class="setbody">
+                    <h2>请</h2>
+                    <h2>调</h2>
+                    <h2>整</h2>
+                    <h2>状</h2>
+                    <h2>态</h2>
+                </div>
+                <div class="setfoot"></div>
+            </div>
+            <div class="condition">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <ul>
+                        <li>开关
+                            {% if set.on_off == 1 %}
+                            <label><input type="radio" name=123 value=1 checked>开</label><br>
+                            <label><input type="radio" name=123 value=0>关</label><br>
+                            {% else %}
+                            <label><input type="radio" name=123 value=1>开</label><br>
+                            <label><input type="radio" name=123 value=0 checked>关</label><br>
+                            {% endif %}
+                            <button type="submit">修改</button>
+                        </li>
+                        <li class="abcd">
+                            <h>模式:{% if set.mode == 0 %}auto{% endif %}{% if set.mode == 1 %}dry{% endif %}{% if set.mode == 2 %}cold{% endif %}{% if set.mode == 3 %}wind{% endif %}{% if set.mode == 4 %}hot{% endif %}</h>
+                            <select name="moshi">
+                                {% comment %} <option value=1 {% if set.mode==1 %}selected{% endif %}>1</option>  {% endcomment %}
+                                {% comment %} {% for i in cishu %}
+                                <option value={{ i }} {% if set.mode == i %}selected{% endif %}>{{i}}</option>
+                                {% endfor %} {% endcomment %}
+                                {% comment %} <option value=3 {% if set.mode==3 %}selected{% endif %}>3</option>
+                                <option value=4 {% if set.mode==4 %}selected{% endif %}>4</option> {% endcomment %}
+                                {% comment %} {% for i in cishu %}
+                                <option value={{ i }} {% if set.mode == i %}selected{% endif %}>{{modemap.i}}</option>
+                                {% endfor %} {% endcomment %}
+                                <option value=0 {% if set.mode == 0 %}selected{% endif %}>auto</option>
+                                <option value=1 {% if set.mode == 1 %}selected{% endif %}>dry</option>
+                                <option value=2 {% if set.mode == 2 %}selected{% endif %}>cold</option>
+                                <option value=3 {% if set.mode == 3 %}selected{% endif %}>wind</option>
+                                <option value=4 {% if set.mode == 4 %}selected{% endif %}>hot</option>
+                            </select>
+                            <input type="submit" value="提交">
+                        </li>
+                        <li class="abcd">
+                            <h>温度:{{set.temp}}</h>
+                            <select name="wendu">
+                                {% for i in wendu %}
+                                <option value={{ i }} {% if set.temp == i %}selected{% endif %}>{{i}}</option>
+                                {% endfor %}
+                                {% comment %} <option value=23 {% if set.temp==23 %}selected{% endif %}>23</option>
+                                <option value=24 {% if set.temp==24 %}selected{% endif %}>24</option>
+                                <option value=25 {% if set.temp==25 %}selected{% endif %}>25</option>
+                                <option value=26 {% if set.temp==26 %}selected{% endif %}>26</option> {% endcomment %}
+                            </select>
+                            <input type="submit" value="提交">
+                        </li>
+                        <li class="abcd">
+                            <h>风速:{{set.speed}}</h>
+                            <select name="fengsu">
+                                <option value=1 {% if set.speed == 1 %}selected{% endif %}>1</option>
+                                <option value=2 {% if set.speed == 2 %}selected{% endif %}>2</option>
+                                <option value=3 {% if set.speed == 3 %}selected{% endif %}>3</option>
+                                {% comment %} <option value=4 {% if set.speed == 4 %}selected{% endif %}>4</option> {% endcomment %}
+                            </select>
+                            <input type="submit" value="提交">
+                        </li>
+                        <li class="abcd">
+                            <h>偏好:{% if set.pref == 0 %}very cold{% endif %}{% if set.pref == 1 %}cold{% endif %}{% if set.pref == 2 %}formal{% endif %}{% if set.pref == 3 %}hot{% endif %}{% if set.pref == 4 %}very hot{% endif %}</h>
+                            <select name="pianhao">
+                                <option value=0 {% if set.pref == 0 %}selected{% endif %}>very cold</option>
+                                <option value=1 {% if set.pref == 1 %}selected{% endif %}>cold</option>
+                                <option value=2 {% if set.pref == 2 %}selected{% endif %}>formal</option>
+                                <option value=3 {% if set.pref == 3 %}selected{% endif %}>hot</option>
+                                <option value=4 {% if set.pref == 4 %}selected{% endif %}>very hot</option>
+                            </select>
+                            <input type="submit" value="提交">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <div class="hourlist">
+                <div class="hourtime">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for i in Mon_hourtime %}
+                        {% if i.if_on == 0 %}
+                        <label><input type="checkbox" name="一" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                        {% else %}
+                        <label><input type="checkbox" checked name="一" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                        {% endif %}
+                        {% endfor %}
+                        <button type="submit">提交</button>
+                </div>
+                <div class="hourtime"> {% csrf_token %}
+                    {% for i in Tues_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="二" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="二" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                </div>
+                <div class="hourtime">{% csrf_token %}
+                    {% for i in Wen_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="三" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="三" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                </div>
+                <div class="hourtime">{% csrf_token %}
+                    {% for i in Thur_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="四" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="四" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                </div>
+                <div class="hourtime">{% csrf_token %}
+                    {% for i in Fri_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="五" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="五" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                </div>
+                <div class="hourtime">{% csrf_token %}
+                    {% for i in Sat_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="六" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="六" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                </div>
+                <div class="hourtime"> {% csrf_token %}
+                    {% for i in Sun_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="七" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="七" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var lis = document.getElementsByClassName("li");
+    var divs = document.getElementsByClassName("hourtime");
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].index = i;//记录下标
+        let flag = true;
+        lis[i].onmouseenter = F;
+        lis[i].onclick = function () {
+            flag = !flag;
+        };
+        lis[i].onmouseleave = function () {
+            if (flag) {
+                for (var j = 0; j < lis.length; j++) {
+                    lis[j].className = "li";
+                    divs[j].style.display = "none";//全部隐藏
+                }
+            }
+        }
+    }
+
+    function F() {
+        for (var j = 0; j < lis.length; j++) {
+            lis[j].className = "li";
+            divs[j].style.display = "none";//全部隐藏
+        }
+        lis[this.index].className = "active li";
+        divs[this.index].style.display = "block";
+    }
+</script>
+
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>offHight思路</title>
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            #wrap{
+                width: 800px;
+                height: 800px;
+                border: 1px solid white;
+                /*margin: 50px auto;*/
+                /*或者*/
+                position: absolute;
+                top: 50%;
+                left: 0%;
+                /* transform: translate(-50%,-50%); */
+            }
+            #top{
+                width: 800px;
+                height: 100px;
+                float: left;
+                text-align: center;
+                font-size: 50px;
+                font-weight: 700;
+                font-family: 楷体;
+                line-height: 100px;
+                background-color: aquamarine;
+            }
+            #left{
+                width: 100px;
+                height: 700px;
+                float: left;
+                /*border: 1px solid yellow;*/
+                position: relative;
+                
+            }
+            #ul1{
+                list-style-type: none;
+            }
+            #ul1 li{
+                /*width: 100px;
+                height: 100px;
+                text-align: center;
+
+                box-sizing: border-box;
+                border: 1px solid gray;
+                line-height: 100px;*/
+                /*或者*/
+                width: 98px;
+                height: 98px;
+                text-align: center;
+                border: 1px solid gray;
+                line-height: 98px;
+                font-size: 25px;
+            }
+            .active{
+                background-color: yellow;
+            }
+            #slider{
+                border: 25px solid transparent;
+                border-right-color: darkgray;
+                position: absolute;
+                top: 0;
+                right: 0;
+                transition: all 0.5s; 
+            }
+            #right{
+                float: right;
+                background-color: bisque;
+            }
+            #right div{ 
+                width: 700px;
+                height: 700px;
+                font-size: 30px;
+                display: none;
+                /*强制英文单词断行*/
+                word-break: break-all;
+                /*或者*/
+                /*word-break: break-word;*/
+
+            }
+            input{
+                width: 20px;
+                height: 20px;
+            }
+            #theone{
+                display: block;
+                background-color:rgb(77, 147, 161);
+            }
+            #thetwo{
+                background-color: rgb(77, 147, 161);
+            }
+            #thethree{
+                
+                background-color: rgb(77, 147, 161);
+            }
+            #thefour{
+                background-color: rgb(77, 147, 161);
+            }
+            #thefive{
+                background-color: rgb(77, 147, 161);
+            }
+            #thesix{
+                background-color: rgb(77, 147, 161);
+            }
+            #theseven{
+                background-color: rgb(77, 147, 161);
+            }
+            button{
+                position: relative;
+                left: 40%;
+                font-size: 40px;
+                font-family: 楷体;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="top">请设置工作时间</div>
+            <div id="left">
+                <ul id="ul1">
+                    <li class="active">周一</li>
+                    <li>周二</li>
+                    <li>周三</li>
+                    <li>周四</li>
+                    <li>周五</li>
+                    <li>周六</li>
+                    <li>周日</li>
+                </ul>
+                <div id="slider"></div>
+            </div>
+            <div id="right">
+                <div id="theone">
+                    <form action="#">
+                    <label><input type="checkbox">0:00~0:30</label>
+                    <label><input type="checkbox">0:30~1:00</label>
+                    <label><input type="checkbox">1:00~1:30</label><br>
+                    <label><input type="checkbox">1:30~2:00</label>
+                   
+                    <label><input type="checkbox">2:00~2:30</label>
+                    <label><input type="checkbox">2:30~3:00</label><br>
+                   
+                    <label><input type="checkbox">3:00~3:30</label>
+                    <label><input type="checkbox">3:30~4:00</label>
+                    
+                    <label><input type="checkbox">4:00~4:30</label><br>
+                    <label><input type="checkbox">4:30~5:00</label>
+                    
+                    <label><input type="checkbox">5:00~5:30</label>
+                    <label><input type="checkbox">5:30~6:00</label><br>
+                    
+                    <label><input type="checkbox">6:00~6:30</label>
+                    <label><input type="checkbox">6:30~7:00</label>
+                    
+                    <label><input type="checkbox">7:00~7:30</label><br>
+                    <label><input type="checkbox">7:30~8:00</label>
+                    
+                    <label><input type="checkbox">8:00~8:30</label>
+                    <label><input type="checkbox">8:30~9:00</label><br>
+                    
+                    <label><input type="checkbox">9:00~9:30</label>
+                    <label><input type="checkbox">9:30~10:00</label>
+                    
+                    <label><input type="checkbox">10:00~10:30</label><br>
+                    <label><input type="checkbox">10:30~11:00</label>
+                    
+                    <label><input type="checkbox">11:00~11:30</label>
+                    <label><input type="checkbox">11:30~12:00</label><br>
+                    
+                    <label><input type="checkbox">12:00~12:30</label>
+                    <label><input type="checkbox">12:30~13:00</label>
+                    
+                    <label><input type="checkbox">13:00~13:30</label><br>
+                    <label><input type="checkbox">13:30~14:00</label>
+                    
+                    <label><input type="checkbox">14:00~14:30</label>
+                    <label><input type="checkbox">14:30~15:00</label><br>
+                    
+                    <label><input type="checkbox">15:00~15:30</label>
+                    <label><input type="checkbox">15:30~16:00</label>
+                    
+                    <label><input type="checkbox">16:00~16:30</label><br>
+                    <label><input type="checkbox">16:30~17:00</label>
+                    
+                    <label><input type="checkbox">17:00~17:30</label>
+                    <label><input type="checkbox">17:30~18:00</label><br>
+                    
+                    <label><input type="checkbox">18:00~18:30</label>
+                    <label><input type="checkbox">18:30~19:00</label>
+                    
+                    <label><input type="checkbox">19:00~19:30</label><br>
+                    <label><input type="checkbox">19:30~20:00</label>
+                    
+                    <label><input type="checkbox">20:00~20:30</label>
+                    <label><input type="checkbox">20:30~21:00</label><br>
+                    
+                    <label><input type="checkbox">21:00~21:30</label>
+                    <label><input type="checkbox">21:30~22:00</label>
+                    
+                    <label><input type="checkbox">22:00~22:30</label><br>
+                    <label><input type="checkbox">22:30~23:00</label>
+                    
+                    <label><input type="checkbox">23:00~23:30</label>
+                    <label><input type="checkbox">23:30~0:00</label><br>
+                    <button type="submit">提交</button>
+                </form>
+                </div>
+                <div id="thetwo">
+                    <form action="#">
+                        <label><input type="checkbox">0:00~0:30</label>
+                        <label><input type="checkbox">0:30~1:00</label>
+                        <label><input type="checkbox">1:00~1:30</label><br>
+                        <label><input type="checkbox">1:30~2:00</label>
+                       
+                        <label><input type="checkbox">2:00~2:30</label>
+                        <label><input type="checkbox">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox">3:00~3:30</label>
+                        <label><input type="checkbox">3:30~4:00</label>
+                        
+                        <label><input type="checkbox">4:00~4:30</label><br>
+                        <label><input type="checkbox">4:30~5:00</label>
+                        
+                        <label><input type="checkbox">5:00~5:30</label>
+                        <label><input type="checkbox">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox">6:00~6:30</label>
+                        <label><input type="checkbox">6:30~7:00</label>
+                        
+                        <label><input type="checkbox">7:00~7:30</label><br>
+                        <label><input type="checkbox">7:30~8:00</label>
+                        
+                        <label><input type="checkbox">8:00~8:30</label>
+                        <label><input type="checkbox">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox">9:00~9:30</label>
+                        <label><input type="checkbox">9:30~10:00</label>
+                        
+                        <label><input type="checkbox">10:00~10:30</label><br>
+                        <label><input type="checkbox">10:30~11:00</label>
+                        
+                        <label><input type="checkbox">11:00~11:30</label>
+                        <label><input type="checkbox">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox">12:00~12:30</label>
+                        <label><input type="checkbox">12:30~13:00</label>
+                        
+                        <label><input type="checkbox">13:00~13:30</label><br>
+                        <label><input type="checkbox">13:30~14:00</label>
+                        
+                        <label><input type="checkbox">14:00~14:30</label>
+                        <label><input type="checkbox">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox">15:00~15:30</label>
+                        <label><input type="checkbox">15:30~16:00</label>
+                        
+                        <label><input type="checkbox">16:00~16:30</label><br>
+                        <label><input type="checkbox">16:30~17:00</label>
+                        
+                        <label><input type="checkbox">17:00~17:30</label>
+                        <label><input type="checkbox">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox">18:00~18:30</label>
+                        <label><input type="checkbox">18:30~19:00</label>
+                        
+                        <label><input type="checkbox">19:00~19:30</label><br>
+                        <label><input type="checkbox">19:30~20:00</label>
+                        
+                        <label><input type="checkbox">20:00~20:30</label>
+                        <label><input type="checkbox">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox">21:00~21:30</label>
+                        <label><input type="checkbox">21:30~22:00</label>
+                        
+                        <label><input type="checkbox">22:00~22:30</label><br>
+                        <label><input type="checkbox">22:30~23:00</label>
+                        
+                        <label><input type="checkbox">23:00~23:30</label>
+                        <label><input type="checkbox">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thethree">
+                    <form action="#">
+                        <label><input type="checkbox">0:00~0:30</label>
+                        <label><input type="checkbox">0:30~1:00</label>
+                        <label><input type="checkbox">1:00~1:30</label><br>
+                        <label><input type="checkbox">1:30~2:00</label>
+                       
+                        <label><input type="checkbox">2:00~2:30</label>
+                        <label><input type="checkbox">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox">3:00~3:30</label>
+                        <label><input type="checkbox">3:30~4:00</label>
+                        
+                        <label><input type="checkbox">4:00~4:30</label><br>
+                        <label><input type="checkbox">4:30~5:00</label>
+                        
+                        <label><input type="checkbox">5:00~5:30</label>
+                        <label><input type="checkbox">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox">6:00~6:30</label>
+                        <label><input type="checkbox">6:30~7:00</label>
+                        
+                        <label><input type="checkbox">7:00~7:30</label><br>
+                        <label><input type="checkbox">7:30~8:00</label>
+                        
+                        <label><input type="checkbox">8:00~8:30</label>
+                        <label><input type="checkbox">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox">9:00~9:30</label>
+                        <label><input type="checkbox">9:30~10:00</label>
+                        
+                        <label><input type="checkbox">10:00~10:30</label><br>
+                        <label><input type="checkbox">10:30~11:00</label>
+                        
+                        <label><input type="checkbox">11:00~11:30</label>
+                        <label><input type="checkbox">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox">12:00~12:30</label>
+                        <label><input type="checkbox">12:30~13:00</label>
+                        
+                        <label><input type="checkbox">13:00~13:30</label><br>
+                        <label><input type="checkbox">13:30~14:00</label>
+                        
+                        <label><input type="checkbox">14:00~14:30</label>
+                        <label><input type="checkbox">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox">15:00~15:30</label>
+                        <label><input type="checkbox">15:30~16:00</label>
+                        
+                        <label><input type="checkbox">16:00~16:30</label><br>
+                        <label><input type="checkbox">16:30~17:00</label>
+                        
+                        <label><input type="checkbox">17:00~17:30</label>
+                        <label><input type="checkbox">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox">18:00~18:30</label>
+                        <label><input type="checkbox">18:30~19:00</label>
+                        
+                        <label><input type="checkbox">19:00~19:30</label><br>
+                        <label><input type="checkbox">19:30~20:00</label>
+                        
+                        <label><input type="checkbox">20:00~20:30</label>
+                        <label><input type="checkbox">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox">21:00~21:30</label>
+                        <label><input type="checkbox">21:30~22:00</label>
+                        
+                        <label><input type="checkbox">22:00~22:30</label><br>
+                        <label><input type="checkbox">22:30~23:00</label>
+                        
+                        <label><input type="checkbox">23:00~23:30</label>
+                        <label><input type="checkbox">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thefour">
+                    <form action="#">
+                        <label><input type="checkbox">0:00~0:30</label>
+                        <label><input type="checkbox">0:30~1:00</label>
+                        <label><input type="checkbox">1:00~1:30</label><br>
+                        <label><input type="checkbox">1:30~2:00</label>
+                       
+                        <label><input type="checkbox">2:00~2:30</label>
+                        <label><input type="checkbox">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox">3:00~3:30</label>
+                        <label><input type="checkbox">3:30~4:00</label>
+                        
+                        <label><input type="checkbox">4:00~4:30</label><br>
+                        <label><input type="checkbox">4:30~5:00</label>
+                        
+                        <label><input type="checkbox">5:00~5:30</label>
+                        <label><input type="checkbox">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox">6:00~6:30</label>
+                        <label><input type="checkbox">6:30~7:00</label>
+                        
+                        <label><input type="checkbox">7:00~7:30</label><br>
+                        <label><input type="checkbox">7:30~8:00</label>
+                        
+                        <label><input type="checkbox">8:00~8:30</label>
+                        <label><input type="checkbox">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox">9:00~9:30</label>
+                        <label><input type="checkbox">9:30~10:00</label>
+                        
+                        <label><input type="checkbox">10:00~10:30</label><br>
+                        <label><input type="checkbox">10:30~11:00</label>
+                        
+                        <label><input type="checkbox">11:00~11:30</label>
+                        <label><input type="checkbox">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox">12:00~12:30</label>
+                        <label><input type="checkbox">12:30~13:00</label>
+                        
+                        <label><input type="checkbox">13:00~13:30</label><br>
+                        <label><input type="checkbox">13:30~14:00</label>
+                        
+                        <label><input type="checkbox">14:00~14:30</label>
+                        <label><input type="checkbox">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox">15:00~15:30</label>
+                        <label><input type="checkbox">15:30~16:00</label>
+                        
+                        <label><input type="checkbox">16:00~16:30</label><br>
+                        <label><input type="checkbox">16:30~17:00</label>
+                        
+                        <label><input type="checkbox">17:00~17:30</label>
+                        <label><input type="checkbox">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox">18:00~18:30</label>
+                        <label><input type="checkbox">18:30~19:00</label>
+                        
+                        <label><input type="checkbox">19:00~19:30</label><br>
+                        <label><input type="checkbox">19:30~20:00</label>
+                        
+                        <label><input type="checkbox">20:00~20:30</label>
+                        <label><input type="checkbox">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox">21:00~21:30</label>
+                        <label><input type="checkbox">21:30~22:00</label>
+                        
+                        <label><input type="checkbox">22:00~22:30</label><br>
+                        <label><input type="checkbox">22:30~23:00</label>
+                        
+                        <label><input type="checkbox">23:00~23:30</label>
+                        <label><input type="checkbox">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thefive">
+                    <form action="#">
+                        <label><input type="checkbox">0:00~0:30</label>
+                        <label><input type="checkbox">0:30~1:00</label>
+                        <label><input type="checkbox">1:00~1:30</label><br>
+                        <label><input type="checkbox">1:30~2:00</label>
+                       
+                        <label><input type="checkbox">2:00~2:30</label>
+                        <label><input type="checkbox">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox">3:00~3:30</label>
+                        <label><input type="checkbox">3:30~4:00</label>
+                        
+                        <label><input type="checkbox">4:00~4:30</label><br>
+                        <label><input type="checkbox">4:30~5:00</label>
+                        
+                        <label><input type="checkbox">5:00~5:30</label>
+                        <label><input type="checkbox">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox">6:00~6:30</label>
+                        <label><input type="checkbox">6:30~7:00</label>
+                        
+                        <label><input type="checkbox">7:00~7:30</label><br>
+                        <label><input type="checkbox">7:30~8:00</label>
+                        
+                        <label><input type="checkbox">8:00~8:30</label>
+                        <label><input type="checkbox">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox">9:00~9:30</label>
+                        <label><input type="checkbox">9:30~10:00</label>
+                        
+                        <label><input type="checkbox">10:00~10:30</label><br>
+                        <label><input type="checkbox">10:30~11:00</label>
+                        
+                        <label><input type="checkbox">11:00~11:30</label>
+                        <label><input type="checkbox">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox">12:00~12:30</label>
+                        <label><input type="checkbox">12:30~13:00</label>
+                        
+                        <label><input type="checkbox">13:00~13:30</label><br>
+                        <label><input type="checkbox">13:30~14:00</label>
+                        
+                        <label><input type="checkbox">14:00~14:30</label>
+                        <label><input type="checkbox">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox">15:00~15:30</label>
+                        <label><input type="checkbox">15:30~16:00</label>
+                        
+                        <label><input type="checkbox">16:00~16:30</label><br>
+                        <label><input type="checkbox">16:30~17:00</label>
+                        
+                        <label><input type="checkbox">17:00~17:30</label>
+                        <label><input type="checkbox">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox">18:00~18:30</label>
+                        <label><input type="checkbox">18:30~19:00</label>
+                        
+                        <label><input type="checkbox">19:00~19:30</label><br>
+                        <label><input type="checkbox">19:30~20:00</label>
+                        
+                        <label><input type="checkbox">20:00~20:30</label>
+                        <label><input type="checkbox">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox">21:00~21:30</label>
+                        <label><input type="checkbox">21:30~22:00</label>
+                        
+                        <label><input type="checkbox">22:00~22:30</label><br>
+                        <label><input type="checkbox">22:30~23:00</label>
+                        
+                        <label><input type="checkbox">23:00~23:30</label>
+                        <label><input type="checkbox">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thesix">
+                    <form action="#">
+                        <label><input type="checkbox">0:00~0:30</label>
+                        <label><input type="checkbox">0:30~1:00</label>
+                        <label><input type="checkbox">1:00~1:30</label><br>
+                        <label><input type="checkbox">1:30~2:00</label>
+                       
+                        <label><input type="checkbox">2:00~2:30</label>
+                        <label><input type="checkbox">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox">3:00~3:30</label>
+                        <label><input type="checkbox">3:30~4:00</label>
+                        
+                        <label><input type="checkbox">4:00~4:30</label><br>
+                        <label><input type="checkbox">4:30~5:00</label>
+                        
+                        <label><input type="checkbox">5:00~5:30</label>
+                        <label><input type="checkbox">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox">6:00~6:30</label>
+                        <label><input type="checkbox">6:30~7:00</label>
+                        
+                        <label><input type="checkbox">7:00~7:30</label><br>
+                        <label><input type="checkbox">7:30~8:00</label>
+                        
+                        <label><input type="checkbox">8:00~8:30</label>
+                        <label><input type="checkbox">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox">9:00~9:30</label>
+                        <label><input type="checkbox">9:30~10:00</label>
+                        
+                        <label><input type="checkbox">10:00~10:30</label><br>
+                        <label><input type="checkbox">10:30~11:00</label>
+                        
+                        <label><input type="checkbox">11:00~11:30</label>
+                        <label><input type="checkbox">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox">12:00~12:30</label>
+                        <label><input type="checkbox">12:30~13:00</label>
+                        
+                        <label><input type="checkbox">13:00~13:30</label><br>
+                        <label><input type="checkbox">13:30~14:00</label>
+                        
+                        <label><input type="checkbox">14:00~14:30</label>
+                        <label><input type="checkbox">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox">15:00~15:30</label>
+                        <label><input type="checkbox">15:30~16:00</label>
+                        
+                        <label><input type="checkbox">16:00~16:30</label><br>
+                        <label><input type="checkbox">16:30~17:00</label>
+                        
+                        <label><input type="checkbox">17:00~17:30</label>
+                        <label><input type="checkbox">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox">18:00~18:30</label>
+                        <label><input type="checkbox">18:30~19:00</label>
+                        
+                        <label><input type="checkbox">19:00~19:30</label><br>
+                        <label><input type="checkbox">19:30~20:00</label>
+                        
+                        <label><input type="checkbox">20:00~20:30</label>
+                        <label><input type="checkbox">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox">21:00~21:30</label>
+                        <label><input type="checkbox">21:30~22:00</label>
+                        
+                        <label><input type="checkbox">22:00~22:30</label><br>
+                        <label><input type="checkbox">22:30~23:00</label>
+                        
+                        <label><input type="checkbox">23:00~23:30</label>
+                        <label><input type="checkbox">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="theseven">
+                    <form action="#">
+                        <label><input type="checkbox">0:00~0:30</label>
+                        <label><input type="checkbox">0:30~1:00</label>
+                        <label><input type="checkbox">1:00~1:30</label><br>
+                        <label><input type="checkbox">1:30~2:00</label>
+                       
+                        <label><input type="checkbox">2:00~2:30</label>
+                        <label><input type="checkbox">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox">3:00~3:30</label>
+                        <label><input type="checkbox">3:30~4:00</label>
+                        
+                        <label><input type="checkbox">4:00~4:30</label><br>
+                        <label><input type="checkbox">4:30~5:00</label>
+                        
+                        <label><input type="checkbox">5:00~5:30</label>
+                        <label><input type="checkbox">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox">6:00~6:30</label>
+                        <label><input type="checkbox">6:30~7:00</label>
+                        
+                        <label><input type="checkbox">7:00~7:30</label><br>
+                        <label><input type="checkbox">7:30~8:00</label>
+                        
+                        <label><input type="checkbox">8:00~8:30</label>
+                        <label><input type="checkbox">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox">9:00~9:30</label>
+                        <label><input type="checkbox">9:30~10:00</label>
+                        
+                        <label><input type="checkbox">10:00~10:30</label><br>
+                        <label><input type="checkbox">10:30~11:00</label>
+                        
+                        <label><input type="checkbox">11:00~11:30</label>
+                        <label><input type="checkbox">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox">12:00~12:30</label>
+                        <label><input type="checkbox">12:30~13:00</label>
+                        
+                        <label><input type="checkbox">13:00~13:30</label><br>
+                        <label><input type="checkbox">13:30~14:00</label>
+                        
+                        <label><input type="checkbox">14:00~14:30</label>
+                        <label><input type="checkbox">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox">15:00~15:30</label>
+                        <label><input type="checkbox">15:30~16:00</label>
+                        
+                        <label><input type="checkbox">16:00~16:30</label><br>
+                        <label><input type="checkbox">16:30~17:00</label>
+                        
+                        <label><input type="checkbox">17:00~17:30</label>
+                        <label><input type="checkbox">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox">18:00~18:30</label>
+                        <label><input type="checkbox">18:30~19:00</label>
+                        
+                        <label><input type="checkbox">19:00~19:30</label><br>
+                        <label><input type="checkbox">19:30~20:00</label>
+                        
+                        <label><input type="checkbox">20:00~20:30</label>
+                        <label><input type="checkbox">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox">21:00~21:30</label>
+                        <label><input type="checkbox">21:30~22:00</label>
+                        
+                        <label><input type="checkbox">22:00~22:30</label><br>
+                        <label><input type="checkbox">22:30~23:00</label>
+                        
+                        <label><input type="checkbox">23:00~23:30</label>
+                        <label><input type="checkbox">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var ul1 = document.getElementById("ul1");
+        var lis = document.getElementsByTagName("li");
+        var slider = document.getElementById("slider");
+        var right = document.getElementById("right");
+        var divs = right.getElementsByTagName("div");//四个页面
+        //获取高度 offsetHeight,
+        //获取宽度 ffsetWidth,
+        //定位上边距的数值 offsetTop
+        //定位左边距 offsetLeft
+        
+        var t = (lis[0].offsetHeight-slider.offsetHeight)*0.5; //居中
+        //设置滑块top
+        slider.style.top = t + "px";
+ 
+        for(var i=0;i<lis.length;i++){
+            lis[i].index = i;//记录下标
+            //添加点击事件
+            lis[i].onclick = function(){
+                for(var j=0;j<lis.length;j++){
+                    lis[j].className = "";
+                    divs[j].style.display = "none";//全部隐藏
+                }
+                this.className = "active";
+                //显示对应的页面
+                divs[this.index].style.display = "block";
+                //改变滑块的位置
+//                每次增加     当前下标*100(li的高度)
+//                点击第一个  0*100 +t
+//                点击第二个  1*100 +t
+                slider.style.top =  this.index*lis[0].offsetHeight + t +"px";
+            }
+        }
+    </script>
+</html>

@@ -1,0 +1,42 @@
+"""myfipro URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+
+from app01 import views
+
+urlpatterns = [
+    # path('admin/', admin.site.urls),
+
+    # www.****.com/index/   ->   函数
+    path('index/', views.index),
+    path('index/1/', views.index_1),
+    path('index/2/', views.index_2),
+    path('index/count/', views.count),
+    path('index/add/', views.add_),
+    path('set/', views.set_aircon),
+    # path('set/day1', views.set_day1),
+    # path('set/day2', views.set_day1),
+    # path('set/day3', views.set_day1),
+    # path('set/day4', views.set_day1),
+    # path('set/day5', views.set_day1),
+    # path('set/day6', views.set_day1),
+    # path('set/day0', views.set_day1),
+    path('zlh/', views.zlh),
+    # path('create/', views.create),
+    path('sleep/', views.sleep),
+    path('zlh2/', views.zlh2)
+]

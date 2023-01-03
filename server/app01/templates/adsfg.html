@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>offHight思路</title>
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            #topbox{
+                background-color: antiquewhite;
+            }
+            #ofswitch{
+                font-size: 30px;
+                display: inline-block;
+                position: relative;
+                left: 10%;
+                width: 300px;
+            }
+            #forpicture{
+                background-image: url(./背景图2.webp);
+                background-repeat: no-repeat;
+                background-size: 240px;
+                background-position: bottom right;
+                height: 120.4px;
+                float: right;
+                width: 220px;
+            }
+            #ofswitch form{
+                display: inline-block;
+            }
+            #wrap{
+                width: 800px;
+                height: 800px;
+                border: 1px solid white;
+                /*margin: 50px auto;*/
+                /*或者*/
+                position: absolute;
+                top: 150px;
+                left: 0%;
+                /* transform: translate(-50%,-50%); */
+            }
+            #top{
+                width: 800px;
+                height: 100px;
+                float: left;
+                text-align: center;
+                font-size: 50px;
+                font-weight: 700;
+                font-family: 楷体;
+                line-height: 100px;
+                background-color: aquamarine;
+            }
+            #left{
+                width: 100px;
+                height: 700px;
+                float: left;
+                /*border: 1px solid yellow;*/
+                position: relative;
+                
+            }
+            #ul1{
+                list-style-type: none;
+            }
+            #ul1 li{
+                /*width: 100px;
+                height: 100px;
+                text-align: center;
+
+                box-sizing: border-box;
+                border: 1px solid gray;
+                line-height: 100px;*/
+                /*或者*/
+                width: 98px;
+                height: 98px;
+                text-align: center;
+                border: 1px solid gray;
+                line-height: 98px;
+                font-size: 25px;
+            }
+            .active{
+                background-color: yellow;
+            }
+            #slider{
+                border: 25px solid transparent;
+                border-right-color: darkgray;
+                position: absolute;
+                top: 0;
+                right: 0;
+                transition: all 0.5s; 
+            }
+            #right{
+                float: right;
+                background-color: bisque;
+            }
+            #right div{ 
+                width: 700px;
+                height: 700px;
+                font-size: 30px;
+                display: none;
+                /*强制英文单词断行*/
+                word-break: break-all;
+                /*或者*/
+                /*word-break: break-word;*/
+
+            }
+            input{
+                width: 20px;
+                height: 20px;
+            }
+            #theone{
+                display: block;
+                background-color:rgb(77, 147, 161);
+            }
+            #thetwo{
+                background-color: rgb(77, 147, 161);
+            }
+            #thethree{
+                
+                background-color: rgb(77, 147, 161);
+            }
+            #thefour{
+                background-color: rgb(77, 147, 161);
+            }
+            #thefive{
+                background-color: rgb(77, 147, 161);
+            }
+            #thesix{
+                background-color: rgb(77, 147, 161);
+            }
+            #theseven{
+                background-color: rgb(77, 147, 161);
+            }
+            #right button{
+                position: relative;
+                left: 40%;
+                font-size: 40px;
+                font-family: 楷体;
+            }
+            #ofswitch button{
+                font-size: 25px;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topbox">
+           
+            <div id="ofswitch">
+                <div id="forpicture"></div>
+                <form action="#" method="post">
+                    <label><input type="radio" name="switch" value="开">开</label><br>
+                    <label><input type="radio" name="switch" value="关">关</label><br>
+                    <button type="submit">修改</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div id="wrap">
+            <div id="top">请设置工作时间</div>
+            <div id="left">
+                <ul id="ul1">
+                    <li class="active">周一</li>
+                    <li>周二</li>
+                    <li>周三</li>
+                    <li>周四</li>
+                    <li>周五</li>
+                    <li>周六</li>
+                    <li>周日</li>
+                </ul>
+                <div id="slider"></div>
+            </div>
+
+    
+            <div id="right">
+                <div id="theone">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                    <label><input type="checkbox" name="周一" value="1">0:00~0:30</label>
+                    <label><input type="checkbox" name="周一" value="2">0:30~1:00</label>
+                    <label><input type="checkbox" name="周一" value="3">1:00~1:30</label><br>
+                    <label><input type="checkbox" name="周一" value="4">1:30~2:00</label>
+                   
+                    <label><input type="checkbox" name="周一" value="5">2:00~2:30</label>
+                    <label><input type="checkbox" name="周一" value="6">2:30~3:00</label><br>
+                   
+                    <label><input type="checkbox" name="周一" value="7">3:00~3:30</label>
+                    <label><input type="checkbox" name="周一" value="8">3:30~4:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="9">4:00~4:30</label><br>
+                    <label><input type="checkbox" name="周一" value="10">4:30~5:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="11">5:00~5:30</label>
+                    <label><input type="checkbox" name="周一" value="12">5:30~6:00</label><br>
+                    
+                    <label><input type="checkbox" name="周一" value="13">6:00~6:30</label>
+                    <label><input type="checkbox" name="周一" value="14">6:30~7:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="15">7:00~7:30</label><br>
+                    <label><input type="checkbox" name="周一" value="16">7:30~8:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="17">8:00~8:30</label>
+                    <label><input type="checkbox" name="周一" value="18">8:30~9:00</label><br>
+                    
+                    <label><input type="checkbox" name="周一" value="19">9:00~9:30</label>
+                    <label><input type="checkbox" name="周一" value="20">9:30~10:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="21">10:00~10:30</label><br>
+                    <label><input type="checkbox" name="周一" value="22">10:30~11:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="23">11:00~11:30</label>
+                    <label><input type="checkbox" name="周一" value="24">11:30~12:00</label><br>
+                    
+                    <label><input type="checkbox" name="周一" value="25">12:00~12:30</label>
+                    <label><input type="checkbox" name="周一" value="26">12:30~13:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="27">13:00~13:30</label><br>
+                    <label><input type="checkbox" name="周一" value="28">13:30~14:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="29">14:00~14:30</label>
+                    <label><input type="checkbox" name="周一" value="30">14:30~15:00</label><br>
+                    
+                    <label><input type="checkbox" name="周一" value="31">15:00~15:30</label>
+                    <label><input type="checkbox" name="周一" value="32">15:30~16:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="33">16:00~16:30</label><br>
+                    <label><input type="checkbox" name="周一" value="34">16:30~17:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="35">17:00~17:30</label>
+                    <label><input type="checkbox" name="周一" value="36">17:30~18:00</label><br>
+                    
+                    <label><input type="checkbox" name="周一" value="37">18:00~18:30</label>
+                    <label><input type="checkbox" name="周一" value="38">18:30~19:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="39">19:00~19:30</label><br>
+                    <label><input type="checkbox" name="周一" value="40">19:30~20:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="41">20:00~20:30</label>
+                    <label><input type="checkbox" name="周一" value="42">20:30~21:00</label><br>
+                    
+                    <label><input type="checkbox" name="周一" value="43">21:00~21:30</label>
+                    <label><input type="checkbox" name="周一" value="44">21:30~22:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="45">22:00~22:30</label><br>
+                    <label><input type="checkbox" name="周一" value="46">22:30~23:00</label>
+                    
+                    <label><input type="checkbox" name="周一" value="47">23:00~23:30</label>
+                    <label><input type="checkbox" name="周一" value="48">23:30~0:00</label><br>
+                    <button type="submit">提交</button>
+                </form>
+                </div>
+                <div id="thetwo">
+                    <form action="#" method="post">
+                        <label><input type="checkbox" name="周二" value="1">0:00~0:30</label>
+                        <label><input type="checkbox" name="周二" value="2">0:30~1:00</label>
+                        <label><input type="checkbox" name="周二" value="3">1:00~1:30</label><br>
+                        <label><input type="checkbox" name="周二" value="4">1:30~2:00</label>
+                       
+                        <label><input type="checkbox" name="周二" value="5">2:00~2:30</label>
+                        <label><input type="checkbox" name="周二" value="6">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox" name="周二" value="7">3:00~3:30</label>
+                        <label><input type="checkbox" name="周二" value="8">3:30~4:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="9">4:00~4:30</label><br>
+                        <label><input type="checkbox" name="周二" value="10">4:30~5:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="11">5:00~5:30</label>
+                        <label><input type="checkbox" name="周二" value="12">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox" name="周二" value="13">6:00~6:30</label>
+                        <label><input type="checkbox" name="周二" value="14">6:30~7:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="15">7:00~7:30</label><br>
+                        <label><input type="checkbox" name="周二" value="16">7:30~8:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="17">8:00~8:30</label>
+                        <label><input type="checkbox" name="周二" value="18">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox" name="周二" value="19">9:00~9:30</label>
+                        <label><input type="checkbox" name="周二" value="20">9:30~10:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="21">10:00~10:30</label><br>
+                        <label><input type="checkbox" name="周二" value="22">10:30~11:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="23">11:00~11:30</label>
+                        <label><input type="checkbox" name="周二" value="24">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox" name="周二" value="25">12:00~12:30</label>
+                        <label><input type="checkbox" name="周二" value="26">12:30~13:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="27">13:00~13:30</label><br>
+                        <label><input type="checkbox" name="周二" value="28">13:30~14:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="29">14:00~14:30</label>
+                        <label><input type="checkbox" name="周二" value="30">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox" name="周二" value="31">15:00~15:30</label>
+                        <label><input type="checkbox" name="周二" value="32">15:30~16:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="33">16:00~16:30</label><br>
+                        <label><input type="checkbox" name="周二" value="34">16:30~17:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="35">17:00~17:30</label>
+                        <label><input type="checkbox" name="周二" value="36">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox" name="周二" value="37">18:00~18:30</label>
+                        <label><input type="checkbox" name="周二" value="38">18:30~19:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="39">19:00~19:30</label><br>
+                        <label><input type="checkbox" name="周二" value="40">19:30~20:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="41">20:00~20:30</label>
+                        <label><input type="checkbox" name="周二" value="42">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox" name="周二" value="43">21:00~21:30</label>
+                        <label><input type="checkbox" name="周二" value="44">21:30~22:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="45">22:00~22:30</label><br>
+                        <label><input type="checkbox" name="周二" value="46">22:30~23:00</label>
+                        
+                        <label><input type="checkbox" name="周二" value="47">23:00~23:30</label>
+                        <label><input type="checkbox" name="周二" value="48">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thethree">
+                    <form action="#" method="post">
+                        <label><input type="checkbox" name="周三" value="1">0:00~0:30</label>
+                        <label><input type="checkbox" name="周三" value="2">0:30~1:00</label>
+                        <label><input type="checkbox" name="周三" value="3">1:00~1:30</label><br>
+                        <label><input type="checkbox" name="周三" value="4">1:30~2:00</label>
+                       
+                        <label><input type="checkbox" name="周三" value="5">2:00~2:30</label>
+                        <label><input type="checkbox" name="周三" value="6">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox" name="周三" value="7">3:00~3:30</label>
+                        <label><input type="checkbox" name="周三" value="8">3:30~4:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="9">4:00~4:30</label><br>
+                        <label><input type="checkbox" name="周三" value="10">4:30~5:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="11">5:00~5:30</label>
+                        <label><input type="checkbox" name="周三" value="12">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox" name="周三" value="13">6:00~6:30</label>
+                        <label><input type="checkbox" name="周三" value="14">6:30~7:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="15">7:00~7:30</label><br>
+                        <label><input type="checkbox" name="周三" value="16">7:30~8:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="17">8:00~8:30</label>
+                        <label><input type="checkbox" name="周三" value="18">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox" name="周三" value="19">9:00~9:30</label>
+                        <label><input type="checkbox" name="周三" value="20">9:30~10:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="21">10:00~10:30</label><br>
+                        <label><input type="checkbox" name="周三" value="22">10:30~11:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="23">11:00~11:30</label>
+                        <label><input type="checkbox" name="周三" value="24">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox" name="周三" value="25">12:00~12:30</label>
+                        <label><input type="checkbox" name="周三" value="26">12:30~13:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="27">13:00~13:30</label><br>
+                        <label><input type="checkbox" name="周三" value="28">13:30~14:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="29">14:00~14:30</label>
+                        <label><input type="checkbox" name="周三" value="30">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox" name="周三" value="31">15:00~15:30</label>
+                        <label><input type="checkbox" name="周三" value="32">15:30~16:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="33">16:00~16:30</label><br>
+                        <label><input type="checkbox" name="周三" value="34">16:30~17:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="35">17:00~17:30</label>
+                        <label><input type="checkbox" name="周三" value="36">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox" name="周三" value="37">18:00~18:30</label>
+                        <label><input type="checkbox" name="周三" value="38">18:30~19:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="39">19:00~19:30</label><br>
+                        <label><input type="checkbox" name="周三" value="40">19:30~20:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="41">20:00~20:30</label>
+                        <label><input type="checkbox" name="周三" value="42">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox" name="周三" value="43">21:00~21:30</label>
+                        <label><input type="checkbox" name="周三" value="44">21:30~22:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="45">22:00~22:30</label><br>
+                        <label><input type="checkbox" name="周三" value="46">22:30~23:00</label>
+                        
+                        <label><input type="checkbox" name="周三" value="47">23:00~23:30</label>
+                        <label><input type="checkbox" name="周三" value="49">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thefour">
+                    <form action="#" method="post">
+                        <label><input type="checkbox" name="周四" value="1">0:00~0:30</label>
+                        <label><input type="checkbox" name="周四" value="2">0:30~1:00</label>
+                        <label><input type="checkbox" name="周四" value="3">1:00~1:30</label><br>
+                        <label><input type="checkbox" name="周四" value="4">1:30~2:00</label>
+                       
+                        <label><input type="checkbox" name="周四" value="5">2:00~2:30</label>
+                        <label><input type="checkbox" name="周四" value="6">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox" name="周四" value="7">3:00~3:30</label>
+                        <label><input type="checkbox" name="周四" value="8">3:30~4:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="9">4:00~4:30</label><br>
+                        <label><input type="checkbox" name="周四" value="10">4:30~5:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="11">5:00~5:30</label>
+                        <label><input type="checkbox" name="周四" value="12">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox" name="周四" value="13">6:00~6:30</label>
+                        <label><input type="checkbox" name="周四" value="14">6:30~7:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="15">7:00~7:30</label><br>
+                        <label><input type="checkbox" name="周四" value="16">7:30~8:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="17">8:00~8:30</label>
+                        <label><input type="checkbox" name="周四" value="18">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox" name="周四" value="19">9:00~9:30</label>
+                        <label><input type="checkbox" name="周四" value="20">9:30~10:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="21">10:00~10:30</label><br>
+                        <label><input type="checkbox" name="周四" value="22">10:30~11:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="23">11:00~11:30</label>
+                        <label><input type="checkbox" name="周四" value="24">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox" name="周四" value="25">12:00~12:30</label>
+                        <label><input type="checkbox" name="周四" value="26">12:30~13:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="27">13:00~13:30</label><br>
+                        <label><input type="checkbox" name="周四" value="28">13:30~14:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="29">14:00~14:30</label>
+                        <label><input type="checkbox" name="周四" value="30">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox" name="周四" value="31">15:00~15:30</label>
+                        <label><input type="checkbox" name="周四" value="32">15:30~16:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="33">16:00~16:30</label><br>
+                        <label><input type="checkbox" name="周四" value="34">16:30~17:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="35">17:00~17:30</label>
+                        <label><input type="checkbox" name="周四" value="36">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox" name="周四" value="37">18:00~18:30</label>
+                        <label><input type="checkbox" name="周四" value="38">18:30~19:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="39">19:00~19:30</label><br>
+                        <label><input type="checkbox" name="周四" value="40">19:30~20:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="41">20:00~20:30</label>
+                        <label><input type="checkbox" name="周四" value="42">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox" name="周四" value="43">21:00~21:30</label>
+                        <label><input type="checkbox" name="周四" value="44">21:30~22:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="45">22:00~22:30</label><br>
+                        <label><input type="checkbox" name="周四" value="46">22:30~23:00</label>
+                        
+                        <label><input type="checkbox" name="周四" value="47">23:00~23:30</label>
+                        <label><input type="checkbox" name="周四" value="48">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thefive">
+                    <form action="#" method="post">
+                        <label><input type="checkbox" name="周五" value="1">0:00~0:30</label>
+                        <label><input type="checkbox" name="周五" value="2">0:30~1:00</label>
+                        <label><input type="checkbox" name="周五" value="3">1:00~1:30</label><br>
+                        <label><input type="checkbox" name="周五" value="4">1:30~2:00</label>
+                       
+                        <label><input type="checkbox" name="周五" value="5">2:00~2:30</label>
+                        <label><input type="checkbox" name="周五" value="6">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox" name="周五" value="7">3:00~3:30</label>
+                        <label><input type="checkbox" name="周五" value="8">3:30~4:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="9">4:00~4:30</label><br>
+                        <label><input type="checkbox" name="周五" value="10">4:30~5:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="11">5:00~5:30</label>
+                        <label><input type="checkbox" name="周五" value="12">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox" name="周五" value="13">6:00~6:30</label>
+                        <label><input type="checkbox" name="周五" value="14">6:30~7:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="15">7:00~7:30</label><br>
+                        <label><input type="checkbox" name="周五" value="16">7:30~8:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="17">8:00~8:30</label>
+                        <label><input type="checkbox" name="周五" value="18">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox" name="周五" value="19">9:00~9:30</label>
+                        <label><input type="checkbox" name="周五" value="20">9:30~10:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="21">10:00~10:30</label><br>
+                        <label><input type="checkbox" name="周五" value="22">10:30~11:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="23">11:00~11:30</label>
+                        <label><input type="checkbox" name="周五" value="24">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox" name="周五" value="25">12:00~12:30</label>
+                        <label><input type="checkbox" name="周五" value="26">12:30~13:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="27">13:00~13:30</label><br>
+                        <label><input type="checkbox" name="周五" value="28">13:30~14:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="29">14:00~14:30</label>
+                        <label><input type="checkbox" name="周五" value="30">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox" name="周五" value="31">15:00~15:30</label>
+                        <label><input type="checkbox" name="周五" value="32">15:30~16:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="33">16:00~16:30</label><br>
+                        <label><input type="checkbox" name="周五" value="34">16:30~17:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="35">17:00~17:30</label>
+                        <label><input type="checkbox" name="周五" value="36">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox" name="周五" value="37">18:00~18:30</label>
+                        <label><input type="checkbox" name="周五" value="38">18:30~19:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="39">19:00~19:30</label><br>
+                        <label><input type="checkbox" name="周五" value="40">19:30~20:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="41">20:00~20:30</label>
+                        <label><input type="checkbox" name="周五" value="42">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox" name="周五" value="43">21:00~21:30</label>
+                        <label><input type="checkbox" name="周五" value="44">21:30~22:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="45">22:00~22:30</label><br>
+                        <label><input type="checkbox" name="周五" value="46">22:30~23:00</label>
+                        
+                        <label><input type="checkbox" name="周五" value="47">23:00~23:30</label>
+                        <label><input type="checkbox" name="周五" value="48">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="thesix">
+                    <form action="#" method="post">
+                        <label><input type="checkbox" name="周六" value="1">0:00~0:30</label>
+                        <label><input type="checkbox" name="周六" value="2">0:30~1:00</label>
+                        <label><input type="checkbox" name="周六" value="3">1:00~1:30</label><br>
+                        <label><input type="checkbox" name="周六" value="4">1:30~2:00</label>
+                       
+                        <label><input type="checkbox" name="周六" value="5">2:00~2:30</label>
+                        <label><input type="checkbox" name="周六" value="6">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox" name="周六" value="7">3:00~3:30</label>
+                        <label><input type="checkbox" name="周六" value="8">3:30~4:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="9">4:00~4:30</label><br>
+                        <label><input type="checkbox" name="周六" value="10">4:30~5:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="11">5:00~5:30</label>
+                        <label><input type="checkbox" name="周六" value="12">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox" name="周六" value="13">6:00~6:30</label>
+                        <label><input type="checkbox" name="周六" value="14">6:30~7:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="15">7:00~7:30</label><br>
+                        <label><input type="checkbox" name="周六" value="16">7:30~8:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="17">8:00~8:30</label>
+                        <label><input type="checkbox" name="周六" value="18">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox" name="周六" value="19">9:00~9:30</label>
+                        <label><input type="checkbox" name="周六" value="20">9:30~10:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="21">10:00~10:30</label><br>
+                        <label><input type="checkbox" name="周六" value="22">10:30~11:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="23">11:00~11:30</label>
+                        <label><input type="checkbox" name="周六" value="24">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox" name="周六" value="25">12:00~12:30</label>
+                        <label><input type="checkbox" name="周六" value="26">12:30~13:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="27">13:00~13:30</label><br>
+                        <label><input type="checkbox" name="周六" value="28">13:30~14:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="29">14:00~14:30</label>
+                        <label><input type="checkbox" name="周六" value="30">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox" name="周六" value="31">15:00~15:30</label>
+                        <label><input type="checkbox" name="周六" value="32">15:30~16:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="33">16:00~16:30</label><br>
+                        <label><input type="checkbox" name="周六" value="34">16:30~17:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="35">17:00~17:30</label>
+                        <label><input type="checkbox" name="周六" value="36">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox" name="周六" value="37">18:00~18:30</label>
+                        <label><input type="checkbox" name="周六" value="38">18:30~19:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="39">19:00~19:30</label><br>
+                        <label><input type="checkbox" name="周六" value="40">19:30~20:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="41">20:00~20:30</label>
+                        <label><input type="checkbox" name="周六" value="42">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox" name="周六" value="43">21:00~21:30</label>
+                        <label><input type="checkbox" name="周六" value="44">21:30~22:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="45">22:00~22:30</label><br>
+                        <label><input type="checkbox" name="周六" value="46">22:30~23:00</label>
+                        
+                        <label><input type="checkbox" name="周六" value="47">23:00~23:30</label>
+                        <label><input type="checkbox" name="周六" value="48">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                <div id="theseven">
+                    <form action="#" method="post">
+                        <label><input type="checkbox" name="周日" value="1">0:00~0:30</label>
+                        <label><input type="checkbox" name="周日" value="2">0:30~1:00</label>
+                        <label><input type="checkbox" name="周日" value="3">1:00~1:30</label><br>
+                        <label><input type="checkbox" name="周日" value="4">1:30~2:00</label>
+                       
+                        <label><input type="checkbox" name="周日" value="5">2:00~2:30</label>
+                        <label><input type="checkbox" name="周日" value="6">2:30~3:00</label><br>
+                       
+                        <label><input type="checkbox" name="周日" value="7">3:00~3:30</label>
+                        <label><input type="checkbox" name="周日" value="8">3:30~4:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="9">4:00~4:30</label><br>
+                        <label><input type="checkbox" name="周日" value="10">4:30~5:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="11">5:00~5:30</label>
+                        <label><input type="checkbox" name="周日" value="12">5:30~6:00</label><br>
+                        
+                        <label><input type="checkbox" name="周日" value="13">6:00~6:30</label>
+                        <label><input type="checkbox" name="周日" value="14">6:30~7:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="15">7:00~7:30</label><br>
+                        <label><input type="checkbox" name="周日" value="16">7:30~8:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="17">8:00~8:30</label>
+                        <label><input type="checkbox" name="周日" value="18">8:30~9:00</label><br>
+                        
+                        <label><input type="checkbox" name="周日" value="19">9:00~9:30</label>
+                        <label><input type="checkbox" name="周日" value="20">9:30~10:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="21">10:00~10:30</label><br>
+                        <label><input type="checkbox" name="周日" value="22">10:30~11:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="23">11:00~11:30</label>
+                        <label><input type="checkbox" name="周日" value="24">11:30~12:00</label><br>
+                        
+                        <label><input type="checkbox" name="周日" value="25">12:00~12:30</label>
+                        <label><input type="checkbox" name="周日" value="26">12:30~13:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="27">13:00~13:30</label><br>
+                        <label><input type="checkbox" name="周日" value="28">13:30~14:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="29">14:00~14:30</label>
+                        <label><input type="checkbox" name="周日" value="30">14:30~15:00</label><br>
+                        
+                        <label><input type="checkbox" name="周日" value="31">15:00~15:30</label>
+                        <label><input type="checkbox" name="周日" value="32">15:30~16:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="33">16:00~16:30</label><br>
+                        <label><input type="checkbox" name="周日" value="34">16:30~17:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="35">17:00~17:30</label>
+                        <label><input type="checkbox" name="周日" value="36">17:30~18:00</label><br>
+                        
+                        <label><input type="checkbox" name="周日" value="37">18:00~18:30</label>
+                        <label><input type="checkbox" name="周日" value="38">18:30~19:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="39">19:00~19:30</label><br>
+                        <label><input type="checkbox" name="周日" value="40">19:30~20:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="41">20:00~20:30</label>
+                        <label><input type="checkbox" name="周日" value="42">20:30~21:00</label><br>
+                        
+                        <label><input type="checkbox" name="周日" value="43">21:00~21:30</label>
+                        <label><input type="checkbox" name="周日" value="44">21:30~22:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="45">22:00~22:30</label><br>
+                        <label><input type="checkbox" name="周日" value="46">22:30~23:00</label>
+                        
+                        <label><input type="checkbox" name="周日" value="47">23:00~23:30</label>
+                        <label><input type="checkbox" name="周日" value="48">23:30~0:00</label><br><button type="submit">提交</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var ul1 = document.getElementById("ul1");
+        var lis = document.getElementsByTagName("li");
+        var slider = document.getElementById("slider");
+        var right = document.getElementById("right");
+        var divs = right.getElementsByTagName("div");//四个页面
+        //获取高度 offsetHeight,
+        //获取宽度 ffsetWidth,
+        //定位上边距的数值 offsetTop
+        //定位左边距 offsetLeft
+        
+        var t = (lis[0].offsetHeight-slider.offsetHeight)*0.5; //居中
+        //设置滑块top
+        slider.style.top = t + "px";
+ 
+        for(var i=0;i<lis.length;i++){
+            lis[i].index = i;//记录下标
+            //添加点击事件
+            lis[i].onclick = function(){
+                for(var j=0;j<lis.length;j++){
+                    lis[j].className = "";
+                    divs[j].style.display = "none";//全部隐藏
+                }
+                this.className = "active";
+                //显示对应的页面
+                divs[this.index].style.display = "block";
+                //改变滑块的位置
+//                每次增加     当前下标*100(li的高度)
+//                点击第一个  0*100 +t
+//                点击第二个  1*100 +t
+                slider.style.top =  this.index*lis[0].offsetHeight + t +"px";
+            }
+        }
+    </script>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <h>该按钮已累计被按下{{cntdata.cnt}}次</h>
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="submit" value="add">
+    </form>
+</body>
+</html>

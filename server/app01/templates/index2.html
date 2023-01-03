@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>智能空调调控网页</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #topbox {
+            background-color: antiquewhite;
+        }
+
+        #ofswitch {
+            font-size: 30px;
+            display: inline-block;
+            position: relative;
+            left: 5%;
+            width: 300px;
+        }
+
+        #forpicture {
+            background-image: url(./背景图2.webp);
+            background-repeat: no-repeat;
+            background-size: 240px;
+            background-position: bottom right;
+            height: 120.4px;
+            float: right;
+            width: 220px;
+        }
+
+        #modeadapt {
+            height: 110px;
+            width: 200px;
+            display: inline-block;
+            position: relative;
+            left: 60%;
+            top: 0%;
+        }
+
+        #modeadapthead {
+            font-size: 30px;
+            width: 200px;
+            float: left;
+        }
+
+        #ofswitch form {
+            display: inline-block;
+        }
+
+        #wrap {
+            width: 800px;
+            height: 800px;
+            border: 1px solid white;
+            /*margin: 50px auto;*/
+            /*或者*/
+            position: absolute;
+            top: 150px;
+            left: 10%;
+            /* transform: translate(-50%,-50%); */
+        }
+
+        #top {
+            width: 800px;
+            height: 100px;
+            float: left;
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            font-family: 楷体;
+            line-height: 100px;
+            background-color: aquamarine;
+        }
+
+        #left {
+            width: 100px;
+            height: 700px;
+            float: left;
+            /*border: 1px solid yellow;*/
+            position: relative;
+
+        }
+
+        #ul1 {
+            list-style-type: none;
+        }
+
+        #ul1 li {
+            /*width: 100px;
+                height: 100px;
+                text-align: center;
+
+                box-sizing: border-box;
+                border: 1px solid gray;
+                line-height: 100px;*/
+            /*或者*/
+            width: 98px;
+            height: 98px;
+            text-align: center;
+            border: 1px solid gray;
+            line-height: 98px;
+            font-size: 25px;
+        }
+
+        .active {
+            background-color: yellow;
+        }
+
+        #slider {
+            border: 25px solid transparent;
+            border-right-color: darkgray;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: all 0.5s;
+        }
+
+        #right {
+            float: right;
+            background-color: bisque;
+        }
+
+        #right div {
+            width: 700px;
+            height: 700px;
+            font-size: 30px;
+            display: none;
+            /*强制英文单词断行*/
+            word-break: break-all;
+            /*或者*/
+            /*word-break: break-word;*/
+
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+        }
+
+        #theone {
+            display: block;
+            background-color: rgb(77, 147, 161);
+        }
+
+        #thetwo {
+            background-color: rgb(77, 147, 161);
+        }
+
+        #thethree {
+
+            background-color: rgb(77, 147, 161);
+        }
+
+        #thefour {
+            background-color: rgb(77, 147, 161);
+        }
+
+        #thefive {
+            background-color: rgb(77, 147, 161);
+        }
+
+        #thesix {
+            background-color: rgb(77, 147, 161);
+        }
+
+        #theseven {
+            background-color: rgb(77, 147, 161);
+        }
+
+        #right button {
+            position: relative;
+            left: 40%;
+            font-size: 40px;
+            font-family: 楷体;
+        }
+
+        #ofswitch button {
+            font-size: 25px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- //上方的大容器 -->
+    <div id="topbox">
+        <!-- //模式调整的容器 -->
+        <div id="modeadapt">
+            <div id="modeadapthead">
+                <p id="fortext">请设置模式:</p>
+            </div>
+            <h>
+                <hr>
+            </h>
+            <h>偏好:{{set.hobby}}</h>
+            <h>模式:{{set.mode}}</h>
+            <h>温度:{{set.temp}}</h>
+            <h>风速:{{set.speed}}</h>
+            <form method="post" action="">
+                {% csrf_token %}
+                <select name="moshi">
+                    {% comment %} <option value=1 {% if set.mode==1 %}selected{% endif %}>1</option> {% endcomment %}
+                    {% for i in cishu %}
+                    <option value={{ i }} {% if set.mode == i %}selected{% endif %}>{{i}}</option>
+                    {% endfor %}
+                    {% comment %} <option value=3 {% if set.mode==3 %}selected{% endif %}>3</option>
+                    <option value=4 {% if set.mode==4 %}selected{% endif %}>4</option> {% endcomment %}
+                </select>
+                <select name="wendu">
+                    {% for i in wendu %}
+                    <option value={{ i }} {% if set.temp == i %}selected{% endif %}>{{i}}</option>
+                    {% endfor %}
+                    {% comment %} <option value=23 {% if set.temp==23 %}selected{% endif %}>23</option>
+                    <option value=24 {% if set.temp==24 %}selected{% endif %}>24</option>
+                    <option value=25 {% if set.temp==25 %}selected{% endif %}>25</option>
+                    <option value=26 {% if set.temp==26 %}selected{% endif %}>26</option> {% endcomment %}
+                </select>
+                <select name="fengsu">
+                    <option value=1 {% if set.speed == 1 %}selected{% endif %}>1</option>
+                    <option value=2 {% if set.speed == 2 %}selected{% endif %}>2</option>
+                    <option value=3 {% if set.speed == 3 %}selected{% endif %}>3</option>
+                    <option value=4 {% if set.speed == 4 %}selected{% endif %}>4</option>
+                </select>
+                {% comment %} <input type="radio" value="模式">
+                <input type="text" value="温度">
+                <input type="text" value="风速">
+                <input type="submit" value="提交"> {% endcomment %}
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <!-- //控制开关的容器 -->
+        {% comment %} <div id="ofswitch">
+            <div id="forpicture"></div>
+            <form action="#" method="post">
+                {% if switchofall == "1" %}
+                <label><input type="radio" name="switchofall" checked>开</label><br>
+                <label><input type="radio" name="switchofall">关</label><br>
+                {% else %}
+                <label><input type="radio" name="switchofall">开</label><br>
+                <label><input type="radio" name="switchofall" checked>关</label><br>
+                {% endif %}
+                <button type="submit">修改</button>
+            </form>
+        </div> {% endcomment %}
+    </div>
+    <hr>
+    <!-- //下方设置时间的容器 -->
+    <div id="wrap">
+        <!-- //位于大容器上方，提醒用户设置时间 -->
+        <div id="top">请设置工作时间</div>
+        <!-- //大容器内部的左方，更换日期 -->
+        <div id="left">
+            <ul id="ul1">
+                <li class="active">周一</li>
+                <li>周二</li>
+                <li>周三</li>
+                <li>周四</li>
+                <li>周五</li>
+                <li>周六</li>
+                <li>周日</li>
+            </ul>
+            <div id="slider"></div>
+        </div>
+
+        <!-- //大容器内部的右方，勾选时间段 -->
+        <div id="right">
+            <!-- //周一 -->
+            <div id="theone">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% for i in Mon_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="一" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="一" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+            </div>
+            <div id="thetwo">
+                    {% csrf_token %}
+                    {% for i in Tues_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="二" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="二" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+            </div>
+            <div id="thethree">
+                    {% csrf_token %}
+                    {% for i in Wen_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="三" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="三" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+            </div>
+            <div id="thefour">
+                    {% csrf_token %}
+                    {% for i in Thur_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="四" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="四" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+            </div>
+            <div id="thefive">
+                    {% csrf_token %}
+                    {% for i in Fri_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="五" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="五" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+            </div>
+            <div id="thesix">
+                    {% csrf_token %}
+                    {% for i in Sat_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="六" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="六" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+            </div>
+            <div id="theseven">
+                    {% csrf_token %}
+                    {% for i in Sun_hourtime %}
+                    {% if i.if_on == 0 %}
+                    <label><input type="checkbox" name="七" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% else %}
+                    <label><input type="checkbox" checked name="七" value="{{ i.times_start }}">{{ i.times_start_show }}</label>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit">提交</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var ul1 = document.getElementById("ul1");
+    var lis = document.getElementsByTagName("li");
+    var slider = document.getElementById("slider");
+    var right = document.getElementById("right");
+    var divs = right.getElementsByTagName("div");//四个页面
+    //获取高度 offsetHeight,
+    //获取宽度 ffsetWidth,
+    //定位上边距的数值 offsetTop
+    //定位左边距 offsetLeft
+
+    var t = (lis[0].offsetHeight - slider.offsetHeight) * 0.5; //居中
+    //设置滑块top
+    slider.style.top = t + "px";
+
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].index = i;//记录下标
+        //添加点击事件
+        lis[i].onclick = function () {
+            for (var j = 0; j < lis.length; j++) {
+                lis[j].className = "";
+                divs[j].style.display = "none";//全部隐藏
+            }
+            this.className = "active";
+            //显示对应的页面
+            divs[this.index].style.display = "block";
+            //改变滑块的位置
+            //                每次增加     当前下标*100(li的高度)
+            //                点击第一个  0*100 +t
+            //                点击第二个  1*100 +t
+            slider.style.top = this.index * lis[0].offsetHeight + t + "px";
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>{{n1}}</h1>
+    {% comment %} <div>{{n2}}</div>
+    <div>{{n2.0}}</div>
+    <div>{{n2.1}}</div>
+    <h1>{{n2.0}}</h1> {% endcomment %}
+    {% for i in n2 %}
+        <span>{{ i }}</span>
+    {% endfor %}
+</body>
+</html>
